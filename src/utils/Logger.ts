@@ -1,9 +1,9 @@
 import { format, createLogger, transports } from "winston";
-import fs from "fs";
+//import fs from "fs";
 import { env } from "../configs";
-if (!fs.existsSync("logs")) {
-  fs.mkdirSync("logs");
-}
+// if (!fs.existsSync("logs")) {
+//   fs.mkdirSync("logs");
+// }
 
 const logFormat = format.combine(
   format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
@@ -19,7 +19,7 @@ export default createLogger({
     new transports.Console({
       format: format.combine(format.colorize(), format.simple()),
     }),
-    new transports.File({ filename: "logs/error.log", level: "error" }),
-    new transports.File({ filename: "logs/combined.log" }),
+    // new transports.File({ filename: "logs/error.log", level: "error" }),
+    // new transports.File({ filename: "logs/combined.log" }),
   ],
 });
