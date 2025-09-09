@@ -134,6 +134,7 @@ class BookService {
               },
               data: {
                 orderIndex: { increment: 1 },
+                updatedAt: new Date(),
               },
             });
           }
@@ -148,6 +149,7 @@ class BookService {
               },
               data: {
                 orderIndex: { decrement: 1 },
+                updatedAt: new Date(),
               },
             });
           }
@@ -155,14 +157,14 @@ class BookService {
           // Update the book with new data
           await tx.book.update({
             where: { id: book.id },
-            data: bookData,
+            data: { ...bookData, updatedAt: new Date() },
           });
         });
       } else {
         // If orderIndex isn't changing, just update the book
         await prisma.book.update({
           where: { id: book.id },
-          data: bookData,
+          data: { ...bookData, updatedAt: new Date() },
         });
       }
 

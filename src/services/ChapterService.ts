@@ -106,6 +106,7 @@ class ChapterService {
               },
               data: {
                 number: { increment: 1 },
+                updatedAt: new Date(),
               },
             });
           } else if (chapterData.number > chapter.number) {
@@ -119,19 +120,20 @@ class ChapterService {
               },
               data: {
                 number: { decrement: 1 },
+                updatedAt: new Date(),
               },
             });
           }
 
           await tx.chapter.update({
             where: { id: chapter.id },
-            data: chapterData,
+            data: { ...chapterData, updatedAt: new Date() },
           });
         });
       } else {
         await prisma.chapter.update({
           where: { id: chapter.id },
-          data: chapterData,
+          data: { ...chapterData, updatedAt: new Date() },
         });
       }
 

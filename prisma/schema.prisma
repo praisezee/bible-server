@@ -38,6 +38,7 @@ model Chapter {
   verses    Verse[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  @@unique([bookId, number], name: "BookChapterUnique")  // Add this line
 }
 
 model Verse {
@@ -48,6 +49,8 @@ model Verse {
   chapter   Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([chapterId, number], name: "BookVerseUnique")  // Add this line
 }
 
 model AdminUser {

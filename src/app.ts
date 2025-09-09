@@ -5,6 +5,7 @@ import compression from "compression";
 import { Logger } from "./utils";
 import { prisma, env } from "./configs";
 import { errorHandler } from "./middlewares";
+import { routes } from "./routes";
 
 const app = express();
 
@@ -37,6 +38,8 @@ app.use((req, res, next) => {
   Logger.info(`${req.method} ${req.path} - ${req.ip}`);
   next();
 });
+
+app.use("/api", routes);
 
 //Health check
 app.get("/health", (req, res) => {

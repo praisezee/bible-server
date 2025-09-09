@@ -107,6 +107,7 @@ class VerseService {
               },
               data: {
                 number: { increment: 1 },
+                updatedAt: new Date(),
               },
             });
           }
@@ -122,6 +123,7 @@ class VerseService {
               },
               data: {
                 number: { decrement: 1 },
+                updatedAt: new Date(),
               },
             });
           }
@@ -129,14 +131,14 @@ class VerseService {
           // Update the verse with new data
           await tx.verse.update({
             where: { id: verse.id },
-            data: verseData,
+            data: { ...verseData, updatedAt: new Date() },
           });
         });
       } else {
         // If number isn't changing, just update the verse
         await prisma.verse.update({
           where: { id: verse.id },
-          data: verseData,
+          data: { ...verseData, updatedAt: new Date() },
         });
       }
 
