@@ -21,7 +21,7 @@
     "prisma:migrate:deploy": "prisma migrate deploy",
     "prisma:studio": "prisma studio",
     "seed": "ts-node scripts/seed.ts",
-    "postinstall": "prisma db push && tsc && prisma generat && ts-node scripts/seed.ts"
+    "postinstall": "prisma db push && tsc && prisma generate && ts-node scripts/seed.ts"
   },
   "private": true,
   "dependencies": {
