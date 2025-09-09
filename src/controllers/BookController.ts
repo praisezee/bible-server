@@ -95,6 +95,7 @@ class BookController {
     const data = await this.bookService.getLastUpdated();
 
     const response: ApiResponse = this.setSuccessResponse("Bible data was recently updated", data);
+    res.json(response);
   });
 
   private checkAdmin = async (user?: { id: string; username: string; role: string }) => {
