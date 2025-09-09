@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TESTAMENTS {
+  OLD
+  NEW
+  CUSTOM
+}
+
+model Book {
+  id          String      @id @default(uuid())
+  name        String @unique
+  testament   TESTAMENTS 
+  orderIndex  Int 
+  chapters    Chapter[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Chapter {
+  id        String      @id @default(uuid())
+  number    Int      // Chapter number (1-indexed)
+  bookId    String
+  book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  verses    Verse[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Verse {
+  id        String      @id @default(uuid())
+  number    Int      // Verse number (1-indexed)
+  text      String   // Verse content
+  chapterId String
+  chapter   Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AdminUser {
+  id        String      @id @default(uuid())
+  username  String   @unique
+  password  String   // Hashed password for secure login
+  role      String   @default("admin")  // For future role-based access
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
