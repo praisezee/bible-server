@@ -17,7 +17,7 @@ class AuthService {
         where: { username: userData.username },
       });
 
-      if (!existingUser) throw new ConflictError("Admin with this username already exist");
+      if (existingUser) throw new ConflictError("Admin with this username already exist");
 
       const password = await CryptoUtils.hashPassword(userData.password);
       const admin = await prisma.adminUser.create({
