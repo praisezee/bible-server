@@ -49,7 +49,7 @@ class VerseController {
     await this.checkAdmin(req.user);
 
     const { number, chapterId, text } = req.body;
-    const id = req.params;
+    const { id } = req.params;
 
     if (!id || typeof id !== "string") throw new ValidationError("Invalid Verse Id");
 
@@ -77,7 +77,7 @@ class VerseController {
 
   deleteVerse = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
     await this.checkAdmin(req.user);
-    const id = req.params;
+    const { id } = req.params;
 
     if (!id || typeof id !== "string") throw new ValidationError("Invalid Verse Id");
     await this.verseService.deleteVerse(id);

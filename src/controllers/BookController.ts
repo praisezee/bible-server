@@ -53,7 +53,7 @@ class BookController {
     await this.checkAdmin(req.user);
 
     const { name, testament, orderIndex } = req.body;
-    const id = req.params;
+    const { id } = req.params;
 
     if (!id || typeof id !== "string") throw new ValidationError("Invalid book Id");
 
@@ -83,7 +83,7 @@ class BookController {
 
   deleteBook = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
     await this.checkAdmin(req.user);
-    const id = req.params;
+    const { id } = req.params;
 
     if (!id || typeof id !== "string") throw new ValidationError("Invalid book Id");
     await this.bookService.deleteBook(id);
